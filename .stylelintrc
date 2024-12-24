@@ -1,0 +1,32 @@
+{
+  "customSyntax": "postcss-scss",
+  "overrides": [
+    {
+      "files": [
+        "**/*.vue"
+      ],
+      "customSyntax": "postcss-html"
+    }
+  ],
+  "extends": [
+    "stylelint-config-standard",
+    "stylelint-config-standard-scss",
+    "stylelint-config-css-modules"
+  ],
+  "plugins": [
+    "stylelint-scss",
+    "stylelint-order"
+  ],
+  "rules": {
+    "color-hex-length": "short",
+    "declaration-block-no-duplicate-properties": true,
+    "block-no-empty": true,
+    "unit-no-unknown": true,
+    "selector-pseudo-class-no-unknown": true,
+    "property-no-unknown": true,
+    "scss/at-rule-no-unknown": true,
+    "scss/dollar-variable-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
+    "scss/percent-placeholder-pattern": "^([a-z][a-z0-9]*)(-[a-z0-9]+)*$",
+    "scss/selector-no-redundant-nesting-selector": true
+  }
+}
