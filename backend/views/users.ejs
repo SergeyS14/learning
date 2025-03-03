@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1>Список пользователей</h1>
+<ul>
+    <% if (users.length) { %>
+        <% users.forEach(function(user) { %>
+            <li><%= user.id %>: <%= user.name %> - <%= user.email %></li>
+            <button class="btn--delete" data-id="<%= user.id %>">DELETE</button>
+            <button class="update--email">update email</button>
+            <form class="form hidden" data-id="<%= user.id %>">
+                <input type="email" name="updateEmail" placeholder="email" required/>
+                <input type="password" name="UpdatePassword" placeholder="password" required>
+                <button type="submit">update</button>
+            </form>
+        <% }); %>
+    <% } else { %>
+        <li>Пользователи не найдены</li>
+    <% } %>
+</ul>
+<h2>USER ADD</h2>
+<form action="/users/add" method="POST">
+    <input type="text" name="name" placeholder="name" required>
+    <input type="email" name="email" placeholder="email" required>
+    <input type="password" name="password" placeholder="password" required>
+    <button type="submit">add</button>
+</form>
+</body>
+</html>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.querySelectorAll('.btn--delete')
+        const updateBtn = document.querySelectorAll('.update--email')
+        const forms = document.querySelectorAll('.form')
+        btn.forEach(btn => {
+            btn.addEventListener('click', async (event) => {
+                const userId = event.target.getAttribute('data-id')
+                const confirmed = confirm('delete?')
+
+                if (!confirmed) {
+                    return
+                }
+
+                try {
+                    const response = await fetch(`/users/delete/${userId}`, {
+                        method: 'DELETE'
+                    })
+
+                    if (response.ok) {
+                        alert(`user ${userId} delete`)
+                        window.location.reload()
+                    } else {
+                        console.log('error delete')
+                    }
+                } catch (err) {
+                    console.log(err)
+                }
+            })
+        })
+
+        updateBtn.forEach((button, index) => {
+            button.addEventListener('click', () => {
+                forms[index].classList.toggle('hidden')
+            })
+        })
+
+        forms.forEach((form) => {
+            form.addEventListener('submit', async (event) => {
+                event.preventDefault()
+
+                const userId = form.getAttribute('data-id')
+                const updateEmail = form.querySelector(`input[name='updateEmail']`).value
+                const password = form.querySelector(`input[name='UpdatePassword']`).value
+
+                try {
+                    const response = await fetch(`/users/update/${userId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/x-www-form-urlencoded'
+                        },
+                        body: `updateEmail=${encodeURIComponent(updateEmail)}&password=${encodeURIComponent(password)}`
+                    })
+
+                    if (response.ok) {
+                        alert(`email user ${userId} update`)
+                        window.location.reload()
+                    }
+                } catch (err) {
+                    console.error(err)
+                }
+            })
+        })
+    })
+</script>

@@ -1,0 +1,35 @@
+.hidden{
+    display: none;
+}
+
+.form--register--item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    background: #d6d6d6;
+    width: 90%;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    box-shadow: 10px 10px 23px -3px rgba(0,0,0,0.75);
+}
+
+.form--login--item {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    display: flex;
+    background: #d6d6d6;
+    width: 90%;
+    flex-direction: column;
+    gap: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    font-size: 15px;
+    box-shadow: 10px 10px 23px -3px rgba(0,0,0,0.75);
+}

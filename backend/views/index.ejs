@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+<h1><%= message %></h1>
+<% if (isAuthenticated) {%>
+<div>
+    <button id="btnProfile" onclick="window.location.href='/profile'" class="hidden">go to profile</button>
+    <h2>Logout</h2>
+    <form action="/logout" method="POST" class="hidden">
+        <button type="submit">Logout</button>
+    </form>
+</div>
+<%} else {%>
+<button class="btn--register">Registration</button>
+<div class="form--register hidden">
+    <form action="/register" method="POST" class="form--register--item">
+        <h2>REGISTRATION</h2>
+        <button type="button" class="close--btn">close</button>
+        <span>Введите имя</span>
+        <input type="text" name="name">
+        <span>Введите почту</span>
+        <input type="email" name="email">
+        <span>Введите пароль</span>
+        <input type="password" name="password">
+        <button type="submit"> register </button>
+    </form>
+</div>
+<%}%>
+<button class="btn--login">JOIN</button>
+<div class="form--login hidden">
+    <form action="/login" method="POST" class="form--login--item">
+        <h2>JOIN</h2>
+        <button type="button" class="close--btn">close</button>
+        <span>Введите почту</span>
+        <input type="email" name="email">
+        <span>Введите пароль</span>
+        <input type="password" name="password">
+        <button type="submit"> JOIN </button>
+    </form>
+</div>
+</body>
+</html>
+
+<script>
+    const btnRegister = document.querySelector('.btn--register')
+    const form = document.querySelector('.form--register')
+    const closeBtn = document.querySelector('.close--btn')
+
+    const btnLogin = document.querySelector('.btn--login')
+    const formLogin = document.querySelector('.form--login')
+
+    btnRegister.addEventListener('click', () => {
+        form.classList.toggle('hidden')
+    })
+
+    closeBtn.addEventListener('click', () => {
+        form.classList.add('hidden')
+    })
+
+    btnLogin.addEventListener('click', () => {
+        formLogin.classList.toggle('hidden')
+    })
+</script>
