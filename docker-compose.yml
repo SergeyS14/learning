@@ -1,0 +1,11 @@
+services:
+  nuxt:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    ports:
+      - '3000:3000'
+    restart: always
+    volumes:
+      - "//c/learning/frontend:/web:rw"
+    command: npm run start
